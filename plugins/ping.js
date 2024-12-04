@@ -1,7 +1,7 @@
 const { smd } = require("../lib");
 const { runtime } = require("../lib"); // Assuming you have a runtime function for uptime
 
-smd(
+/*smd(
   {
     pattern: "ping", 
     react: "⏳️", 
@@ -46,6 +46,36 @@ smd(
 
     } catch (e) {
       m.error(`${e}\n\nCommand: ping`, e, false);
+    }
+  }
+); */
+smd(
+  {
+    pattern: "ping",
+    react: "⏳️",
+    desc: "Check the bot's latency and uptime",
+    category: "misc",
+    filename: __filename,
+  },
+  async (m) => {
+    try {
+      // Record the start time
+      const start = Date.now();
+
+      // Send initial message
+      await m.send("> checking ping...");
+
+      // Calculate latency based on the time it takes to complete the message send
+      const latency = Date.now() - start;
+
+      // Reply with the calculated latency
+      await m.reply(`> Latency: ${latency}ms`);
+
+      // React to confirm success
+      await m.react("✅️");
+    } catch (e) {
+      // Handle errors
+      m.error(`${e}\n\nCommand: pig`, e, false);
     }
   }
 );
